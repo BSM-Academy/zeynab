@@ -112,12 +112,28 @@ summary{cursor:pointer;font-weight:700}
 .tp-st{color:#F5A623;font-size:13px;margin-top:12px}
 .bulle{position:relative;background:var(--carte);border:1px solid var(--trait);border-radius:18px 18px 18px 4px;padding:12px 16px;font-size:16px;line-height:1.5}
 .bulle b{font-family:"Space Grotesk"}
+.cote{display:none}
+@media (min-width:960px){
+  .page{max-width:1180px;display:grid;grid-template-columns:340px minmax(0,1fr);column-gap:56px;align-content:start;padding:28px 32px 40px}
+  .haut{grid-column:1/-1}
+  .cote{display:flex;flex-direction:column;align-items:center;gap:14px;grid-column:1;grid-row:2/span 60;position:sticky;top:24px;align-self:start}
+  .cote img{width:100%;max-width:300px;height:auto;max-height:68vh;object-fit:contain;object-position:bottom;transform:scaleX(-1)}
+  .cote-sol{width:70%;height:18px;margin-top:-22px;border-radius:50%;background:var(--sauge);opacity:.45;filter:blur(6px)}
+  .cote-bulle{align-self:stretch;background:var(--carte);border:1px solid var(--trait);border-radius:18px 18px 18px 4px;padding:12px 16px;font-size:15px;line-height:1.45}
+  .cote-bulle b{font-family:"Space Grotesk"}
+  .ecran,.actions,.bas{grid-column:2}
+  .ecran .hote-corps{display:none}
+  .ecran .hote{grid-template-columns:1fr}
+  .capture.etroite{max-width:520px}
+  h1{font-size:44px}h2{font-size:34px}
+}
 .bas{margin-top:auto;padding-top:30px;font-size:13px;color:var(--gris);text-align:center}
 </style>
 </head>
 <body>
 <main class="page">
   <div class="haut"><div class="marque" aria-label="BSM Academy"><img src="img/bsm.png" alt=""><span>ACADEMY</span></div><span class="logo"><img src="img/zeynab.jpg" alt="">Zeynab · ta créatrice de pages produit&nbsp;IA</span><span></span><div class="jauge" aria-hidden="true"><i id="jauge"></i></div></div>
+  <aside class="cote" aria-hidden="true"><div class="cote-bulle" id="coteBulle"></div><img id="coteImg" src="img/zeynab-accueil.webp" alt=""><div class="cote-sol"></div></aside>
 
   <!-- Accueil -->
   <section class="ecran" data-bouton="C'est parti">
@@ -359,6 +375,13 @@ pip install -q pillow 2>/dev/null || true</pre><button class="copier" data-cible
     suivant.textContent=e.dataset.bouton||'Continuer';
     retour.style.visibility=i===0?'hidden':'visible';
     document.getElementById('recommencer').style.visibility=i===0?'hidden':'visible';
+    var cb=document.getElementById('coteBulle'), ci=document.getElementById('coteImg'), pt=e.querySelector('.partie');
+    if(cb){
+      if(i===0)cb.innerHTML="Je t'accompagne pendant toute l'installation 👋";
+      else if(e.hasAttribute('data-fin'))cb.innerHTML="C'est bon, je suis prête à bosser pour toi 💪";
+      else cb.innerHTML='<b>'+(pt?pt.textContent:'')+'</b><br>Étape '+i+' sur '+(ecrans.length-2)+' : je suis là si tu bloques.';
+      ci.src=e.hasAttribute('data-fin')?'img/zeynab-salut.webp':'img/zeynab-accueil.webp';
+    }
     suivant.disabled=false; noms();
     if(haut!==false)window.scrollTo({top:0,behavior:'smooth'});
     if(i===0)setTimeout(function(){prenom.focus()},50);
