@@ -60,8 +60,6 @@ input[type=text]:focus{outline:none;border-color:var(--sauge)}
 .lien::after{content:" ↗"}
 .services{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 16px}
 .service{background:var(--carte);border:1px solid var(--trait);border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.4}
-a.service{display:block;color:inherit;text-decoration:none;transition:border-color .2s,transform .2s}a.service:hover{border-color:var(--sauge);transform:translateY(-1px)}
-.service i{display:block;margin-top:6px;font-style:normal;font-weight:700;font-size:13px;color:var(--texte);text-decoration:underline;text-decoration-color:var(--sauge);text-underline-offset:3px}
 .service b{display:block;font-family:"Space Grotesk"}
 .service span{color:var(--gris)}
 .actions{display:flex;align-items:center;gap:16px;margin-top:22px}
@@ -161,13 +159,13 @@ summary{cursor:pointer;font-weight:700}
   <section class="ecran" data-bouton="Suivant">
     <span class="partie">Avant de commencer</span>
     <h2><span class="nom"></span>voici mes outils</h2>
-    <p>Il te faut un compte à toi sur chacun. Pas encore inscrit ? <b>Clique sur la carte</b> pour créer ton compte.</p>
+    <p>Il te faut un compte à toi sur chacun.</p>
     <div class="services">
-      <a class="service" href="https://claude.ai/upgrade" target="_blank" rel="noopener"><b>Claude Pro</b><span>mon cerveau (Pro ou Max)</span><i>S'inscrire ↗</i></a>
-      <a class="service" href="https://www.shopify.com/fr/essai-gratuit" target="_blank" rel="noopener"><b>Shopify</b><span>ta boutique, où je crée ta page</span><i>S'inscrire ↗</i></a>
-      <a class="service" href="https://apps.shopify.com/moonbundle" target="_blank" rel="noopener"><b>Moonbundle</b><span>tes offres de packs (gratuit jusqu'à 500 $ de ventes/mois)</span><i>S'inscrire ↗</i></a>
-      <a class="service" href="https://kie.ai" target="_blank" rel="noopener"><b>Kie</b><span>mon pinceau : les images IA (crédits)</span><i>S'inscrire ↗</i></a>
-      <a class="service" href="https://github.com/signup" target="_blank" rel="noopener"><b>GitHub</b><span>pour que Claude me trouve, gratuit</span><i>S'inscrire ↗</i></a>
+      <div class="service"><b>Claude Pro</b><span>mon cerveau (Pro ou Max)</span></div>
+      <div class="service"><b>Shopify</b><span>ta boutique, où je crée ta page</span></div>
+      <div class="service"><b>Moonbundle</b><span>tes offres de packs (gratuit jusqu'à 500 $ de ventes/mois)</span></div>
+      <div class="service"><b>Kie</b><span>mon pinceau : les images IA (crédits)</span></div>
+      <div class="service"><b>GitHub</b><span>pour que Claude me trouve, gratuit</span></div>
     </div>
     <p>Fais l'installation sur un <b>ordinateur</b>.</p>
   </section>
