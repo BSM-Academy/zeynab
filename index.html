@@ -88,6 +88,26 @@ summary{cursor:pointer;font-weight:700}
 .hote .bulle{align-self:center;border-radius:18px 18px 4px 18px;animation:entre .5s .35s ease both}
 @keyframes arrive{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion: reduce){.hote-corps,.hote .bulle{animation:none}}
+.tel-col{display:flex;flex-direction:column;gap:12px;align-self:center}
+.tel{position:relative;width:100%;max-width:112px;aspect-ratio:9/18;margin:0 0 0 auto;border-radius:16px;border:4px solid #0E100E;background:#0E100E;box-shadow:0 6px 16px rgba(14,16,14,.2);overflow:hidden}
+.tel::before{content:"";position:absolute;z-index:2;top:4px;left:50%;width:34%;height:6px;border-radius:9px;background:#0E100E;transform:translateX(-50%)}
+.tel-ecran{position:absolute;inset:0;overflow:hidden;background:#fff;border-radius:12px}
+.tel-zoom{width:360px;transform-origin:top left}
+.tel-page{animation:defile var(--duree,16s) ease-in-out infinite}
+@keyframes defile{0%,8%{transform:translateY(0)}92%,100%{transform:translateY(calc(-1 * var(--dist,0px)))}}
+@media (prefers-reduced-motion: reduce){.tel-page{animation:none}}
+@media (min-width:600px){.tel{max-width:132px}}
+.tel-page img{display:block;width:360px;height:auto}
+.tp-b{padding:18px 18px 22px;font:15px/1.4 "DM Sans",sans-serif;color:#111}
+.tp-t{font-weight:700;font-size:20px;line-height:1.2;margin:0 0 6px}
+.tp-p{margin:0 0 12px}.tp-p s{opacity:.5;margin-left:6px}
+.tp-h{font-weight:700;font-size:13px;margin:0 0 8px}
+.tp-o{border:2px solid #111;border-radius:10px;padding:12px;background:#fff;text-align:center}
+.tp-o b{display:block;font-size:15px}.tp-o i{display:block;font-size:12px;opacity:.7;margin:2px 0 6px}
+.tp-g{margin-top:8px;background:#EEF2EB;border-radius:8px;padding:8px 10px;font-size:12px;display:flex;justify-content:space-between}
+.tp-g span{background:#111;color:#fff;border-radius:6px;padding:1px 6px;font-weight:700}
+.tp-btn{margin-top:12px;background:#111;color:#fff;border-radius:12px;padding:13px;text-align:center;font-weight:700}
+.tp-st{color:#F5A623;font-size:13px;margin-top:12px}
 .bulle{position:relative;background:var(--carte);border:1px solid var(--trait);border-radius:18px 18px 18px 4px;padding:12px 16px;font-size:16px;line-height:1.5}
 .bulle b{font-family:"Space Grotesk"}
 .bas{margin-top:auto;padding-top:30px;font-size:13px;color:var(--gris);text-align:center}
@@ -100,7 +120,17 @@ summary{cursor:pointer;font-weight:700}
   <!-- Accueil -->
   <section class="ecran" data-bouton="C'est parti">
     <span class="partie">Installation</span>
-    <div class="hote"><div class="bulle">Moi c'est <b>Zeynab</b>, ta créatrice de pages produit IA 🛍️<br><br>Donne-moi le lien d'une page qui vend déjà : je te fais la même sur ta boutique, dans ta langue.</div><div class="hote-corps"><img src="img/zeynab-accueil.webp" alt="Zeynab, la créatrice de pages produit de l'équipe, t'accueille"></div></div>
+    <div class="hote"><div class="tel-col"><div class="bulle">Moi c'est <b>Zeynab</b>, ta créatrice de pages produit IA 🛍️<br><br>Donne-moi le lien d'une page qui vend déjà : je te fais la même sur ta boutique, dans ta langue.</div>
+      <div class="tel" aria-label="Exemple de page produit créée par Zeynab"><div class="tel-ecran"><div class="tel-zoom"><div class="tel-page">
+        <img src="img/glowbo_s01_M.webp" alt=""><img src="img/glowbo_g1.webp" alt="">
+        <div class="tp-b"><p class="tp-t">Glowbo™ - Light-Up Activity Board</p><p class="tp-p">$440.99<s>$731.99</s></p>
+          <p class="tp-h">Hours of screen-free discovery from age 1 ✨</p>
+          <div class="tp-o"><b>Glowbo™ Light-Up Activity Board</b><i>Give them their best first discoveries 💛</i><b>$440.99</b>
+            <div class="tp-g">🎁 Sensory animal book <span>FREE</span></div></div>
+          <div class="tp-btn">Add to cart</div><div class="tp-st">★★★★★ <span style="color:#111">(Based on 600+ ratings)</span></div></div>
+        <img src="img/glowbo_s04_M.webp" alt=""><img src="img/glowbo_g2.webp" alt="">
+      </div></div></div></div></div>
+      <div class="hote-corps"><img src="img/zeynab-accueil.webp" alt="Zeynab, la créatrice de pages produit de l'équipe, t'accueille"></div></div>
     <h1>On m'installe ensemble&nbsp;?</h1>
     <p>Une petite étape à la fois, environ 20 minutes en tout. Rien ne s'installe sur ton ordinateur : je travaille dans le cloud de Claude.</p>
     <p><b>Comment tu t'appelles ?</b></p>
@@ -341,6 +371,15 @@ pip install -q pillow 2>/dev/null || true</pre><button class="copier" data-cible
   });
   retour.addEventListener('click',function(){if(i>0)montre(i-1)});
   document.getElementById('recommencer').addEventListener('click',function(){montre(0)});
+  function telephone(){
+    document.querySelectorAll('.tel').forEach(function(t){
+      var z=t.querySelector('.tel-zoom'), pg=t.querySelector('.tel-page'), e=t.querySelector('.tel-ecran');
+      var k=e.clientWidth/360; z.style.transform='scale('+k+')';
+      var dist=pg.scrollHeight-e.clientHeight/k; pg.style.setProperty('--dist',Math.max(0,dist)+'px');
+      pg.style.setProperty('--duree',Math.max(10,dist/90)+'s');
+    });
+  }
+  window.addEventListener('load',telephone); window.addEventListener('resize',telephone);
   montre(i,false);
   document.querySelectorAll('.copier').forEach(function(b){
     b.addEventListener('click',function(){
