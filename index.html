@@ -167,7 +167,6 @@ summary{cursor:pointer;font-weight:700}
       <div class="service"><b>Kie</b><span>mon pinceau : les images IA (crédits)</span></div>
       <div class="service"><b>GitHub</b><span>pour que Claude me trouve, gratuit</span></div>
     </div>
-    <div class="astuce">Tu as déjà installé <b>Amine</b> ? Tu as déjà Claude et GitHub : tu iras plus vite.</div>
     <p>Fais l'installation sur un <b>ordinateur</b>.</p>
   </section>
 
@@ -175,7 +174,7 @@ summary{cursor:pointer;font-weight:700}
   <section class="ecran" data-bouton="C'est fait">
     <span class="partie">GitHub</span>
     <h2>Connecte Claude à GitHub</h2>
-    <p>Déjà fait pour Amine ? Clique directement sur « C'est fait ».</p>
+    <p>Déjà fait ? Clique directement sur « C'est fait ».</p>
     <ol>
       <li>Pas encore de compte GitHub ? Crée-le (gratuit) : <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>.</li>
       <li>Sur claude.ai/code, Claude te propose de <b>connecter GitHub</b> : accepte.</li>
@@ -352,7 +351,7 @@ pip install -q pillow 2>/dev/null || true</pre><button class="copier" data-cible
   var suivant=document.getElementById('suivant'), retour=document.getElementById('retour'), prenom=document.getElementById('prenom');
   var i=Math.min(parseInt(lire('ecran'),10)||0, ecrans.length-1);
   prenom.value=lire('prenom');
-  // suivi formateur : prénom + étape envoyés une fois par étape au formulaire Google « Élèves Amine · BSM Academy »
+  // suivi formateur : prénom + étape envoyés une fois par étape au formulaire Google de suivi BSM Academy
   var SUIVI='https://docs.google.com/forms/d/e/1FAIpQLSchD1c4E1w4WVzkTA_DuHZreRPDqZhlw8uf0kC3Ia4udKRSqg/formResponse';
   function suivi(etape){
     var p=prenom.value.trim(); if(!p||lire('suivi-'+etape))return;
