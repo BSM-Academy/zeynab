@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installer Zeynab</title>
+<meta name="description" content="Le tuto pas à pas pour installer Zeynab, ta créatrice de pages produit IA, dans Claude.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@500;700&family=Jost:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sauge:#9DB89A; --sauge-fond:#D5DECF; --noir:#0E100E; --alerte:#E5484D;
+  --fond:#EEF2EB; --texte:#0E100E; --gris:#4A524A; --trait:#C3CEBD; --carte:#FFFFFF; --code:#0E100E; --code-texte:#E8EFE5;
+  --bouton:#0E100E; --bouton-texte:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --fond:#121512; --texte:#E8EFE5; --gris:#A9B5A6; --trait:#2E362D; --carte:#1B201B; --sauge-fond:#26302A; --code:#0A0C0A;
+    --bouton:#9DB89A; --bouton-texte:#0E100E;
+  }
+}
+:root[data-theme="dark"]{ --fond:#121512; --texte:#E8EFE5; --gris:#A9B5A6; --trait:#2E362D; --carte:#1B201B; --sauge-fond:#26302A; --code:#0A0C0A; --bouton:#9DB89A; --bouton-texte:#0E100E; }
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--fond);color:var(--texte);font:17px/1.6 "DM Sans",system-ui,sans-serif}
+.page{max-width:640px;margin:0 auto;padding:20px 16px 40px;min-height:100%;display:flex;flex-direction:column}
+.haut{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;margin-bottom:28px}
+.logo{font:700 15px "Space Grotesk";letter-spacing:.02em;white-space:nowrap}
+.jauge{grid-column:1/-1;height:6px;background:var(--sauge-fond);border-radius:99px;overflow:hidden}
+.jauge i{display:block;height:100%;width:0;background:var(--sauge);transition:width .4s ease}
+.ecran{display:none;animation:entre .35s ease}
+.ecran.actif{display:block}
+@keyframes entre{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.ecran{animation:none}.jauge i{transition:none}}
+.partie{display:inline-block;background:var(--sauge);color:var(--noir);font:700 12px "Space Grotesk";text-transform:uppercase;letter-spacing:.08em;padding:4px 10px;border-radius:99px;margin-bottom:14px}
+h1,h2{font-family:"Space Grotesk",sans-serif;line-height:1.15;margin:0 0 14px;letter-spacing:-.01em}
+h1{font-size:clamp(30px,7vw,42px)}
+h2{font-size:clamp(25px,5.5vw,32px)}
+p{margin:0 0 14px}
+.doux{color:var(--gris)}
+a{color:inherit;text-decoration-color:var(--sauge);text-underline-offset:3px;text-decoration-thickness:2px}
+ol{padding-left:22px;margin:0 0 14px}
+li{margin:8px 0}
+code{font:14.5px ui-monospace,Menlo,monospace;background:var(--sauge-fond);padding:1px 6px;border-radius:6px}
+input[type=text]{width:100%;font:inherit;font-size:20px;padding:14px 16px;border-radius:12px;border:2px solid var(--trait);background:var(--carte);color:var(--texte);margin:6px 0 4px}
+input[type=text]:focus{outline:none;border-color:var(--sauge)}
+.bloc{position:relative;margin:12px 0 16px}
+.bloc pre{background:var(--code);color:var(--code-texte);border-radius:12px;padding:14px 16px;padding-right:100px;margin:0;overflow-x:auto;font:14.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre}
+.copier{position:absolute;top:8px;right:8px;font:700 14px "DM Sans";border:0;border-radius:8px;padding:8px 14px;background:var(--sauge);color:var(--noir);cursor:pointer}
+.attention{border-left:4px solid var(--alerte);background:var(--carte);padding:12px 14px;border-radius:8px;margin:14px 0;font-size:16px}
+.astuce{border-left:4px solid var(--sauge);background:var(--sauge-fond);padding:12px 14px;border-radius:8px;margin:14px 0;font-size:16px}
+.champs{background:var(--carte);border:1px solid var(--trait);border-radius:12px;padding:6px 16px;margin:12px 0 16px}
+.champ{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--trait);flex-wrap:wrap}
+.champ:last-child{border-bottom:0}
+.champ span{color:var(--gris)}
+.lien{display:inline-block;background:var(--carte);border:2px solid var(--noir);color:var(--texte);text-decoration:none;font-weight:700;padding:11px 18px;border-radius:12px;margin:4px 0 14px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lien{border-color:var(--sauge)}}
+:root[data-theme="dark"] .lien{border-color:var(--sauge)}
+.lien::after{content:" ↗"}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 16px}
+.service{background:var(--carte);border:1px solid var(--trait);border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.4}
+.service b{display:block;font-family:"Space Grotesk"}
+.service span{color:var(--gris)}
+.actions{display:flex;align-items:center;gap:16px;margin-top:22px}
+.suivant{font:700 18px "DM Sans";background:var(--bouton);color:var(--bouton-texte);border:0;border-radius:14px;padding:15px 26px;cursor:pointer}
+.suivant:disabled{opacity:.35;cursor:not-allowed}
+.retour{font:500 15px "DM Sans";background:none;border:0;color:var(--gris);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+details{border-top:1px solid var(--trait);padding:12px 0}
+summary{cursor:pointer;font-weight:700}
+.capture{display:block;width:100%;border-radius:12px;border:1px solid var(--trait);margin:10px 0 14px}
+.capture.etroite{max-width:420px}
+.marque{justify-self:start;display:flex;align-items:center;gap:8px;color:var(--texte)}
+.marque img{width:30px;height:30px}
+.marque span{font:400 16px "Jost",sans-serif;letter-spacing:.06em}
+@media (max-width:560px){.marque span{display:none}}
+.signature{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:var(--gris);margin-bottom:8px}
+.signature img{width:16px;height:16px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid var(--sauge)}
+.presente{display:flex;align-items:flex-end;gap:12px;margin:4px 0 18px}
+.presente img{width:96px;height:96px;flex:none;border-radius:24px;object-fit:cover;border:3px solid var(--sauge);box-shadow:0 8px 24px rgba(14,16,14,.18)}
+.hote{display:grid;grid-template-columns:1fr 44%;align-items:end;gap:6px;margin:0 0 6px}
+.hote.salut{grid-template-columns:1fr 36%}
+.hote-corps{position:relative;display:flex;justify-content:center;animation:arrive .6s ease both}
+.hote-corps::before{content:"";position:absolute;left:8%;right:8%;bottom:-6px;height:22px;border-radius:50%;background:var(--sauge);opacity:.45;filter:blur(6px)}
+.hote-corps img{position:relative;width:100%;height:auto;max-height:440px;object-fit:contain;object-position:bottom}
+.hote .bulle{align-self:center;border-radius:18px 18px 4px 18px;animation:entre .5s .35s ease both}
+@keyframes arrive{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.hote-corps,.hote .bulle{animation:none}}
+.bulle{position:relative;background:var(--carte);border:1px solid var(--trait);border-radius:18px 18px 18px 4px;padding:12px 16px;font-size:16px;line-height:1.5}
+.bulle b{font-family:"Space Grotesk"}
+.bas{margin-top:auto;padding-top:30px;font-size:13px;color:var(--gris);text-align:center}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="haut"><div class="marque" aria-label="BSM Academy"><img src="img/bsm.png" alt=""><span>ACADEMY</span></div><span class="logo"><img src="img/zeynab.jpg" alt="">Zeynab · ta créatrice de pages produit IA</span><span></span><div class="jauge" aria-hidden="true"><i id="jauge"></i></div></div>
+
+  <!-- Accueil -->
+  <section class="ecran" data-bouton="C'est parti">
+    <span class="partie">Installation</span>
+    <div class="hote"><div class="bulle">Moi c'est <b>Zeynab</b>, ta créatrice de pages produit IA 🛍️<br><br>Donne-moi le lien d'une page qui vend déjà : je te fais la même sur ta boutique, dans ta langue.</div><div class="hote-corps"><img src="img/zeynab-accueil.webp" alt="Zeynab, la créatrice de pages produit de l'équipe, t'accueille"></div></div>
+    <h1>On m'installe ensemble&nbsp;?</h1>
+    <p>Une petite étape à la fois, environ 20 minutes en tout. Rien ne s'installe sur ton ordinateur : je travaille dans le cloud de Claude.</p>
+    <p><b>Comment tu t'appelles ?</b></p>
+    <input type="text" id="prenom" autocomplete="given-name" placeholder="Ton prénom">
+    <p class="doux" style="font-size:14px;margin-top:8px">Ton avancement est gardé sur ce navigateur : tu peux fermer la page et revenir plus tard.</p>
+  </section>
+
+  <section class="ecran" data-bouton="Suivant">
+    <span class="partie">Avant de commencer</span>
+    <h2><span class="nom"></span>voici mes outils</h2>
+    <p>Il te faut un compte à toi sur chacun.</p>
+    <div class="services">
+      <div class="service"><b>Claude Pro</b><span>mon cerveau (Pro ou Max)</span></div>
+      <div class="service"><b>Shopify</b><span>ta boutique, où je crée ta page</span></div>
+      <div class="service"><b>Moonbundle</b><span>tes offres de packs (gratuit jusqu'à 500 $ de ventes/mois)</span></div>
+      <div class="service"><b>Kie</b><span>mon pinceau : les images IA (crédits)</span></div>
+      <div class="service"><b>GitHub</b><span>pour que Claude me trouve, gratuit</span></div>
+    </div>
+    <div class="astuce">Tu as déjà installé <b>Amine</b> ? Tu as déjà Claude et GitHub : tu iras plus vite.</div>
+    <p>Fais l'installation sur un <b>ordinateur</b>.</p>
+  </section>
+
+  <!-- GitHub -->
+  <section class="ecran" data-bouton="C'est fait">
+    <span class="partie">GitHub</span>
+    <h2>Connecte Claude à GitHub</h2>
+    <p>Déjà fait pour Amine ? Clique directement sur « C'est fait ».</p>
+    <ol>
+      <li>Pas encore de compte GitHub ? Crée-le (gratuit) : <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>.</li>
+      <li>Sur claude.ai/code, Claude te propose de <b>connecter GitHub</b> : accepte.</li>
+      <li>GitHub te demande où installer Claude : laisse <b>All repositories</b> coché, comme ici, puis clique sur le bouton vert <b>Install</b>.</li>
+    </ol>
+    <img class="capture" src="img/github-claude.jpg" alt="Réglage GitHub Repository access avec All repositories entouré">
+    <a class="lien" href="https://claude.ai/code" target="_blank" rel="noopener">Ouvrir claude.ai/code</a>
+  </section>
+
+  <!-- Kie -->
+  <section class="ecran" data-bouton="J'ai ma clé Kie">
+    <span class="partie">Ta clé Kie</span>
+    <h2>Ta clé Kie</h2>
+    <p>Kie, c'est là que je fabrique les images de ta page. Une page complète consomme environ <b>150 à 250 crédits</b> : je t'annonce toujours le nombre avant de lancer.</p>
+    <div class="astuce">Ouvre une <b>note vide</b> sur ton ordinateur : tu y colleras ta clé le temps de l'installation, puis tu la supprimeras.</div>
+    <img class="capture etroite" src="img/kie.jpg" alt="Page API Keys de Kie : bouton Create New Key et bouton copier entourés">
+    <ol>
+      <li>Crée ton compte Kie si on te le demande, puis ajoute des crédits dans <b>Billing</b>.</li>
+      <li>Dans <b>API Keys</b>, clique sur <b>Create New Key</b> (repère 1), nomme-la <code>Zeynab</code> et valide.</li>
+      <li>Clique sur le bouton <b>copier</b> à droite de ta clé (repère 2) et colle-la dans ta note.</li>
+    </ol>
+    <a class="lien" href="https://kie.ai/api-key" target="_blank" rel="noopener">Ouvrir Kie</a>
+  </section>
+
+  <!-- Shopify -->
+  <section class="ecran" data-bouton="Ma boutique est connectée">
+    <span class="partie">Ta boutique</span>
+    <h2>Connecte ta boutique Shopify à Claude</h2>
+    <p>Comme ça, je peux créer ta page directement dans ta boutique. Le bouton en bas ouvre la bonne page de Claude, avec Shopify déjà cherché :</p>
+    <img class="capture" src="img/shopify-connecteur.jpg" alt="Connecteur Shopify dans Claude avec le bouton plus entouré">
+    <ol>
+      <li>Clique sur le <b>+</b> à droite de <b>Shopify</b> (repère 1), puis sur <b>Connecter</b>.</li>
+      <li>Shopify s'ouvre : choisis <b>ta boutique</b>, puis clique sur <b>Installer</b>.</li>
+    </ol>
+    <a class="lien" href="https://claude.ai/new#customize/connectors?q=Shopify" target="_blank" rel="noopener">Ouvrir les connecteurs de Claude</a>
+  </section>
+
+  <!-- Moonbundle -->
+  <section class="ecran" data-bouton="Moonbundle est installé">
+    <span class="partie">Tes offres · 1/2</span>
+    <h2>Installe Moonbundle (gratuit)</h2>
+    <p>Moonbundle affiche les offres de packs sur ta page (1 acheté, 2 achetés avec remise, cadeau offert…). C'est <b>gratuit</b> tant que tu fais moins de 500 $ de ventes par mois avec.</p>
+    <ol>
+      <li>Ouvre Moonbundle avec le bouton en bas, clique sur <b>Installer</b> et choisis ta boutique.</li>
+      <li>Dans l'appli, clique sur <b>Continue on demo</b> (repère 1) :</li>
+    </ol>
+    <img class="capture etroite" src="img/moon-demo.jpg" alt="Fenêtre Pick a plan de Moonbundle avec le lien Continue on demo entouré">
+    <ol start="3">
+      <li>Choisis le module <b>Bundles</b> (repère 2), puis clique sur <b>Start demo</b> (repère 3).</li>
+    </ol>
+    <img class="capture etroite" src="img/moon-module.jpg" alt="Fenêtre Choose your demo module avec Bundles et Start demo entourés">
+    <a class="lien" href="https://apps.shopify.com/moonbundle" target="_blank" rel="noopener">Ouvrir Moonbundle</a>
+  </section>
+
+  <section class="ecran" data-bouton="Moonbundle est connecté" data-etape="connecteurs">
+    <span class="partie">Tes offres · 2/2</span>
+    <h2>Connecte Moonbundle à Claude</h2>
+    <p>Le bouton en bas ouvre directement la fenêtre « Ajouter un connecteur personnalisé » de Claude :</p>
+    <img class="capture etroite" src="img/moon-connecteur.jpg" alt="Fenêtre Ajouter un connecteur personnalisé remplie pour Moonbundle">
+    <ol>
+      <li>Dans <b>Nom</b> (repère 1), écris : <code>Moonbundle</code></li>
+      <li>Dans <b>URL du serveur MCP</b> (repère 2), colle :</li>
+    </ol>
+    <div class="bloc"><pre id="moonurl">https://app.moonappz.com/mcp</pre><button class="copier" data-cible="moonurl">Copier</button></div>
+    <ol start="3">
+      <li>Clique sur <b>Continuer</b> (repère 3), puis sur <b>Connecter</b> et choisis ta boutique.</li>
+      <li>Moonbundle te demande l'autorisation : clique sur <b>Approve</b>.</li>
+    </ol>
+    <img class="capture etroite" src="img/moon-approuver.jpg" alt="Écran Authorize access de Moonbundle avec le bouton Approve entouré">
+    <a class="lien" href="https://claude.ai/new?modal=add-custom-connector" target="_blank" rel="noopener">Ajouter le connecteur dans Claude</a>
+  </section>
+
+  <!-- Atelier -->
+  <section class="ecran" data-bouton="La fenêtre est ouverte">
+    <span class="partie">Mon atelier · 1/3</span>
+    <h2>Crée mon environnement</h2>
+    <p>L'environnement, c'est l'atelier où je travaille. Sur <a href="https://claude.ai/code" target="_blank" rel="noopener">claude.ai/code</a>, tout en bas sous la zone de message :</p>
+    <img class="capture etroite" src="img/env-nouveau.jpg" alt="Bouton Cloud et menu Nouvel environnement entourés">
+    <ol>
+      <li>Clique sur le bouton avec le <b>petit nuage</b>.</li>
+      <li>Clique sur <b>Nouvel environnement</b>.</li>
+    </ol>
+  </section>
+
+  <section class="ecran" data-bouton="C'est fait">
+    <span class="partie">Mon atelier · 2/3</span>
+    <h2>Le nom et l'accès Internet</h2>
+    <img class="capture etroite" src="img/env-nom-reseau.jpg" alt="Formulaire Nouvel environnement : champ Nom et option Complet entourés">
+    <ol>
+      <li>Dans <b>Nom</b>, écris <code>Zeynab</code>.</li>
+      <li>Clique sur <b>Accès réseau</b> et choisis <b>Complet</b>.</li>
+    </ol>
+  </section>
+
+  <section class="ecran" data-bouton="C'est fait">
+    <span class="partie">Mon atelier · 3/3</span>
+    <h2>Le démarrage et les réglages</h2>
+    <p>Fais défiler la fenêtre vers le bas :</p>
+    <img class="capture etroite" src="img/env-script-variables.jpg" alt="Champs Script de configuration et Variables d'environnement entourés">
+    <p><b>1. Dans « Script de configuration »</b>, colle :</p>
+    <div class="bloc"><pre id="script">#!/bin/bash
+pip install -q pillow 2>/dev/null || true</pre><button class="copier" data-cible="script">Copier</button></div>
+    <p><b>2. Dans « Variables d'environnement »</b>, colle :</p>
+    <div class="bloc"><pre id="variables">KIE_API_KEY=cloud</pre><button class="copier" data-cible="variables">Copier</button></div>
+    <p><b>3.</b> Clique sur <b>Ajouter un environnement</b> en bas (ou <b>Enregistrer les modifications</b>).</p>
+  </section>
+
+  <!-- Coffre -->
+  <section class="ecran" data-bouton="C'est fait">
+    <span class="partie">Le coffre</span>
+    <h2>Range ta clé Kie</h2>
+    <p>Le coffre (« Secrets réseau ») garde ta clé à l'abri : je peux m'en servir, mais jamais la lire.</p>
+    <p>Rouvre ton environnement (bouton nuage → <b>Cloud</b> → passe la souris sur <b>Zeynab</b> → roue dentée), puis clique sur <b>Ajouter un secret</b> :</p>
+    <img class="capture etroite" src="img/env-ajouter-secret.jpg" alt="Bouton Ajouter un secret entouré">
+    <img class="capture etroite" src="img/secret-kie.jpg" alt="Formulaire Ajouter un secret rempli pour Kie">
+    <ol>
+      <li><b>Nom</b> : <code>Kie</code></li>
+      <li><b>Sites web autorisés</b> : tape <code>api.kie.ai</code> puis appuie sur <b>Entrée</b>.</li>
+      <li><b>Valeur</b> : colle ta clé Kie (laisse Authorization et Bearer tels quels).</li>
+      <li>Clique sur <b>Ajouter</b>, puis sur <b>Enregistrer les modifications</b>.</li>
+    </ol>
+    <p>Ta clé est à l'abri : tu peux <b>supprimer ta note</b>.</p>
+  </section>
+
+  <!-- Test -->
+  <section class="ecran" data-bouton="Zeynab me dit que tout est ok">
+    <span class="partie">Dernière étape</span>
+    <h2>Le test</h2>
+    <p>Ce bouton ouvre Claude avec tout déjà choisi :</p>
+    <img class="capture" src="img/lancer.jpg" alt="Zone de message avec l'environnement Zeynab et le dossier de Zeynab entourés">
+    <ol>
+      <li>Vérifie en bas : <b>Zeynab</b>, et le dossier <b>zeynab-pages-produit-ia</b>.</li>
+      <li>Le message est déjà écrit : clique sur la <b>flèche d'envoi</b>.</li>
+    </ol>
+    <p>Je dois te répondre que tout est <b>ok</b> (Kie, Shopify, Moonbundle). Sinon, je te dis quelle étape refaire : utilise « Retour » pour y revenir.</p>
+    <a class="lien lancer" href="https://claude.ai/code" target="_blank" rel="noopener" data-prompt="Vérifie mon installation.">Lancer le test</a>
+  </section>
+
+  <!-- Fin -->
+  <section class="ecran" data-fin>
+    <span class="partie">Terminé 🎉</span>
+    <div class="hote salut"><div class="bulle">C'est bon, je suis prête à bosser pour toi 💪<br><br>Envoie-moi ta première page concurrente.</div><div class="hote-corps"><img src="img/zeynab-salut.webp" alt="Zeynab te salue"></div></div>
+    <h1>Bravo <span class="nom-seul"></span>, Zeynab est prête</h1>
+    <p><b>Pour créer une page produit :</b></p>
+    <ol>
+      <li>Clique sur le bouton : Claude s'ouvre avec le message déjà écrit.</li>
+      <li>Colle le <b>lien de la page concurrente</b> à la place des points, et la langue de ta boutique.</li>
+      <li>Clique sur la <b>flèche d'envoi</b>.</li>
+    </ol>
+    <a class="lien lancer" href="https://claude.ai/code" target="_blank" rel="noopener" data-prompt="Fais ma page produit à partir de cette page concurrente : … (langue de ma boutique : …)">Lancer Zeynab</a>
+    <p>Je te montre le nom, les prix et l'offre, je t'annonce les crédits Kie et j'attends ton <b>ok</b>. Ensuite je construis tout dans une <b>copie de ton thème</b> : ta boutique en ligne ne bouge pas. À la fin, je te donne un lien d'aperçu, et c'est <b>toi</b> qui publies quand la page te plaît.</p>
+    <div class="astuce"><b>Astuce :</b> ajoute cette page à tes favoris, elle s'ouvre directement ici avec ton bouton.</div>
+    <div class="astuce"><b>Mises à jour :</b> rien à faire. Tu utilises toujours ma dernière version.</div>
+    <h2 style="font-size:22px;margin-top:26px">Un souci ?</h2>
+    <details><summary>Je dis que la clé Kie est « MANQUANTE »</summary><p>Revois l'écran « Le démarrage et les réglages » de mon atelier, puis démarre une <b>nouvelle</b> session.</p></details>
+    <details><summary>Je ne vois pas ta boutique ou Moonbundle</summary><p>Revois les écrans « Connecte ta boutique » et « Connecte Moonbundle », puis démarre une nouvelle session.</p></details>
+    <details><summary>Erreur 401 ou « invalid api key » (Kie)</summary><p>La clé est fausse : supprime le secret Kie dans le coffre et ajoute-le à nouveau.</p></details>
+    <details><summary>Plus de crédits Kie</summary><p>Recharge ton compte dans Kie → Billing.</p></details>
+    <details><summary>L'offre de packs n'apparaît pas</summary><p>Dans Moonbundle, vérifie que la démo (ou un forfait) est active. Je m'occupe du reste dans ta copie de thème.</p></details>
+  </section>
+
+  <div class="actions" id="actions">
+    <button class="suivant" id="suivant">Continuer</button>
+    <button class="retour" id="retour">Retour</button>
+  </div>
+  <div class="bas"><div class="signature"><img src="img/bsm.png" alt="">Un outil de l'accompagnement BSM Academy</div><button class="retour" id="recommencer" style="font-size:13px">Recommencer depuis le début</button></div>
+</main>
+<script>
+(function(){
+  var lire=function(k){try{return localStorage.getItem('zeynab-'+k)||''}catch(e){return ''}};
+  var ecrire=function(k,v){try{localStorage.setItem('zeynab-'+k,v)}catch(e){}};
+  var ecrans=[].slice.call(document.querySelectorAll('.ecran'));
+  var suivant=document.getElementById('suivant'), retour=document.getElementById('retour'), prenom=document.getElementById('prenom');
+  var i=Math.min(parseInt(lire('ecran'),10)||0, ecrans.length-1);
+  prenom.value=lire('prenom');
+  // suivi formateur : prénom + étape envoyés une fois par étape au formulaire Google « Élèves Amine · BSM Academy »
+  var SUIVI='https://docs.google.com/forms/d/e/1FAIpQLSchD1c4E1w4WVzkTA_DuHZreRPDqZhlw8uf0kC3Ia4udKRSqg/formResponse';
+  function suivi(etape){
+    var p=prenom.value.trim(); if(!p||lire('suivi-'+etape))return;
+    try{fetch(SUIVI,{method:'POST',mode:'no-cors',body:new URLSearchParams({'entry.609854161':p,'entry.2108766158':'','entry.264842827':etape})}).then(function(){ecrire('suivi-'+etape,'1')},function(){})}catch(e){}
+  }
+  function noms(){
+    var p=prenom.value.trim();
+    document.querySelectorAll('.nom').forEach(function(e){e.textContent=p?p+', ':''});
+    document.querySelectorAll('.nom-seul').forEach(function(e){e.textContent=p});
+    if(i===0)suivant.disabled=!p;
+    document.querySelectorAll('.lancer').forEach(function(a){
+      a.href='https://claude.ai/code?repositories='+encodeURIComponent('BSM-Academy/zeynab-pages-produit-ia')+'&environment=Zeynab&prompt='+encodeURIComponent(a.dataset.prompt||'');
+    });
+  }
+  function montre(n,haut){
+    i=n; ecrire('ecran',String(i));
+    ecrans.forEach(function(e,k){e.classList.toggle('actif',k===i)});
+    var e=ecrans[i];
+    document.getElementById('jauge').style.width=(100*i/(ecrans.length-1))+'%';
+    document.getElementById('actions').style.display=e.hasAttribute('data-fin')?'none':'flex';
+    suivant.textContent=e.dataset.bouton||'Continuer';
+    retour.style.visibility=i===0?'hidden':'visible';
+    document.getElementById('recommencer').style.visibility=i===0?'hidden':'visible';
+    suivant.disabled=false; noms();
+    if(haut!==false)window.scrollTo({top:0,behavior:'smooth'});
+    if(i===0)setTimeout(function(){prenom.focus()},50);
+  }
+  prenom.addEventListener('input',function(){ecrire('prenom',prenom.value);noms()});
+  prenom.addEventListener('keydown',function(ev){if(ev.key==='Enter'&&prenom.value.trim()){suivi('Zeynab · 1. A commencé');montre(1)}});
+  suivant.addEventListener('click',function(){
+    if(i===0)suivi('Zeynab · 1. A commencé');
+    if(ecrans[i].dataset.etape==='connecteurs')suivi('Zeynab · 2. Shopify et Moonbundle connectés');
+    if(i<ecrans.length-1)montre(i+1);
+    if(ecrans[i].hasAttribute('data-fin'))suivi('Zeynab · 3. Installation terminée');
+  });
+  retour.addEventListener('click',function(){if(i>0)montre(i-1)});
+  document.getElementById('recommencer').addEventListener('click',function(){montre(0)});
+  montre(i,false);
+  document.querySelectorAll('.copier').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.getElementById(b.dataset.cible).textContent;
+      var fini=function(){b.textContent='Copié ✓';setTimeout(function(){b.textContent='Copier'},1600)};
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(fini,function(){secours(t);fini()})}else{secours(t);fini()}
+    });
+  });
+  function secours(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+})();
+</script>
+</body>
+</html>
