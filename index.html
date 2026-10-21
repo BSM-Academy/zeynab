@@ -271,7 +271,7 @@ summary{cursor:pointer;font-weight:700}
     <img class="capture etroite" src="img/env-script-variables.jpg" alt="Champs Script de configuration et Variables d'environnement entourés">
     <p><b>1. Dans « Script de configuration »</b>, colle :</p>
     <div class="bloc"><pre id="script">#!/bin/bash
-pip install -q pillow 2>/dev/null || true</pre><button class="copier" data-cible="script">Copier</button></div>
+curl -fsSL https://raw.githubusercontent.com/BSM-Academy/zeynab-pages-produit-ia/main/installer.sh | bash</pre><button class="copier" data-cible="script">Copier</button></div>
     <p><b>2. Dans « Variables d'environnement »</b>, colle :</p>
     <div class="bloc"><pre id="variables">KIE_API_KEY=cloud</pre><button class="copier" data-cible="variables">Copier</button></div>
     <p><b>3.</b> Clique sur <b>Ajouter un environnement</b> en bas (ou <b>Enregistrer les modifications</b>).</p>
@@ -324,6 +324,7 @@ pip install -q pillow 2>/dev/null || true</pre><button class="copier" data-cible
     <div class="astuce"><b>Astuce :</b> ajoute cette page à tes favoris, elle s'ouvre directement ici avec ton bouton.</div>
     <div class="astuce"><b>Mises à jour :</b> rien à faire. Tu utilises toujours ma dernière version.</div>
     <h2 style="font-size:22px;margin-top:26px">Un souci ?</h2>
+    <details><summary>Je ne me présente pas comme Zeynab, ou je fais un « audit » au lieu de ta page</summary><p>Ton atelier a l'ancien script. Ouvre ton atelier (bouton nuage → Cloud → passe la souris sur <b>Zeynab</b> → roue dentée), remplace tout le « Script de configuration » par celui de l'écran « Le démarrage et les réglages », clique sur <b>Enregistrer les modifications</b>, puis démarre une <b>nouvelle</b> session.</p></details>
     <details><summary>Je dis que la clé Kie est « MANQUANTE »</summary><p>Revois l'écran « Le démarrage et les réglages » de mon atelier, puis démarre une <b>nouvelle</b> session.</p></details>
     <details><summary>Je ne vois pas ta boutique ou Moonbundle</summary><p>Revois les écrans « Connecte ta boutique » et « Connecte Moonbundle », puis démarre une nouvelle session.</p></details>
     <details><summary>Erreur 401 ou « invalid api key » (Kie)</summary><p>La clé est fausse : supprime le secret Kie dans le coffre et ajoute-le à nouveau.</p></details>
